@@ -1,43 +1,28 @@
-# Simple Web Application
+# Project Summary
+The project is a Flask-based API that offers a simple yet functional web application with two primary endpoints:
 
-This is a simple web application using [Python Flask](http://flask.pocoo.org/) and [MySQL](https://www.mysql.com/) database. 
-This is used in the demonstration of the development of Ansible Playbooks.
-  
-  Below are the steps required to get this working on a base linux system.
-  
-  - **Install all required dependencies**
-  - **Install and Configure Web Server**
-  - **Start Web Server**
+/: Returns a "Welcome to My Flask App!" message.
+/how are you: Responds with "I am good, how about you?" when accessed.
+The API is lightweight and easy to deploy, serving as a practical example of how a Python Flask app can be containerized and deployed on a Kubernetes cluster using a CI/CD pipeline.
+
    
-## 1. Install all required dependencies
+## How the API was containerized
+The Flask API was containerized using Docker, making it portable and isolated from the host environment. This ensures consistency across different stages of development and deployment, regardless of the underlying infrastructure.
+
+The Dockerfile is based on ubuntu:20.04, providing a stable base for the application.
+Python dependencies, including Flask, were installed in the container, and the application code (app.py) was copied into the image.
+Once built, the image was stored in Docker Hub under the name ttemiloluwa/flask-app-ci-cd, from where it can be pulled for deployment.
+
   
-  Python and its dependencies
-  ```bash
-  apt-get install -y python3 python3-setuptools python3-dev build-essential python3-pip default-libmysqlclient-dev
-  ```
    
-## 2. Install and Configure Web Server
+## CI/CD Process
+To automate the build, test, and deployment process, GitHub Actions was used for the CI/CD pipeline. Here’s a step-by-step breakdown of how the pipeline works:
 
-Install Python Flask dependency
-```bash
-pip3 install flask
-pip3 install flask-mysql
-```
+Automated Docker Build: Every time new code is pushed to the main branch, the workflow builds the Docker image using the latest codebase.
+Image Push to Docker Hub: Once the image is built, it is automatically pushed to Docker Hub under ttemiloluwa/flask-app-ci-cd.
 
-- Copy `app.py` or download it from a source repository
-- Configure database credentials and parameters 
 
-## 3. Start Web Server
+## API deployed on Kubernetes
 
-Start web server
-```bash
-FLASK_APP=app.py flask run --host=0.0.0.0
-```
 
-## 4. Test
 
-Open a browser and go to URL
-```
-http://<IP>:5000                            => Welcome
-http://<IP>:5000/how%20are%20you            => I am good, how about you?
-```
