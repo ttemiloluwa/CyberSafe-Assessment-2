@@ -1,6 +1,15 @@
 import os
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__)
+
+# SQLite configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'  # Creating a  SQLite database named app.db
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Disabling track modifications for performance
+
+db = SQLAlchemy(app)
+
 
 @app.route("/")
 def main():

@@ -1,1 +1,2 @@
 Flask
+flask-sqlalchemy      #Updating requirements.txt to include flask and flask sqlalchemy
